@@ -62,7 +62,7 @@
             <arguments>
                 <argument>rmi</argument>
                 <argument>-f</argument>
-                <argument>devopsproj.projapp:latest</argument>
+                <argument>xjkg/devopsproj.projapp</argument>
             </arguments>
         </configuration>
     </execution>
