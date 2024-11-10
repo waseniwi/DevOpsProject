@@ -5,9 +5,6 @@ import java.util.Scanner;
 
 import service.LibraryService;
 
-/**
- * Hello world!
- */
 public class App {
 	 private static LibraryService libraryService = new LibraryService();
 
