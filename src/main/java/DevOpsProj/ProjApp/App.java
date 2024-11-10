@@ -3,7 +3,6 @@ package DevOpsProj.ProjApp;
 import java.util.List;
 import java.util.Scanner;
 
-import model.Book;
 import service.LibraryService;
 
 /**
@@ -13,7 +12,7 @@ public class App {
 	 private static LibraryService libraryService = new LibraryService();
 
 	    public static void main(String[] args) {
-	    	System.out.println("\nCurrent Books in Library:");
+	    	System.out.println("\nLibrary v.1.0\nCurrent Books in Library:");
 	    	List<Book> books = libraryService.getBooks();
 	    	books.forEach(System.out::println);
 	        Scanner scanner = new Scanner(System.in);

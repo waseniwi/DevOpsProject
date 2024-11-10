@@ -45,60 +45,109 @@
   <build>
   <plugins>
   <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.0.0</version>
-        <executions><!-- This shit not working
-         <execution>
+<groupId>org.codehaus.mojo</groupId>
+<artifactId>exec-maven-plugin</artifactId>
+<version>3.0.0</version>
+<executions>
+        
+    <execution>
         <id>docker-clean</id>
-        <phase>pre-install</phase>
+        <phase>clean</phase>
         <goals>
-        <goal>exec</goal>
+            <goal>exec</goal>
         </goals>
         <configuration>
-        <executable>docker</executable>
-        <workingDirectory>${project.basedir}</workingDirectory>
-        <arguments>
-        <argument>rmi</argument>
-        <argument>-f</argument>
-        <argument>devopsproj/projapp:latest</argument>
-        </arguments>
+            <executable>docker</executable>
+            <workingDirectory>${project.basedir}</workingDirectory>
+            <arguments>
+                <argument>rmi</argument>
+                <argument>-f</argument>
+                <argument>devopsproj.projapp:latest</argument>
+            </arguments>
         </configuration>
-        </execution>-->
-        <execution>
+    </execution>
+
+    <execution>
         <id>docker-build</id>
         <phase>install</phase>
         <goals>
-        <goal>exec</goal>
+            <goal>exec</goal>
         </goals>
         <configuration>
-        <executable>docker</executable>
-        <arguments>
-        <argument>build</argument>
-        <argument>-t</argument>
-        <argument>devopsproj.projapp</argument>
-        <argument>.</argument>
-        </arguments>
+            <executable>docker</executable>
+            <arguments>
+                <argument>build</argument>
+                <argument>-t</argument>
+                <argument>xjkg/devopsproj.projapp:latest</argument>
+                <argument>.</argument>
+            </arguments>
         </configuration>
-        </execution>
-        <execution>
-		<id>docker-push</id>
-		<phase>deploy</phase>
-		<goals>
-		<goal>exec</goal>
-		</goals>
-		<configuration>
-		<executable>docker</executable>
-		<arguments>
-		<argument>push</argument>
-		<argument>-a</argument>
-		<argument>devopsproj.projapp</argument>
-		</arguments>
-		</configuration>
-		</execution>
-        </executions>
-        </plugin>
-        </plugins>
+    </execution>
+
+    <execution>
+        <id>docker-push</id>
+        <phase>install</phase>
+        <goals>
+            <goal>exec</goal>
+        </goals>
+        <configuration>
+            <executable>docker</executable>
+            <arguments>
+                <argument>push</argument>
+                <argument>xjkg/devopsproj.projapp:latest</argument>
+            </arguments>
+        </configuration>
+    </execution>
+		
+	 <execution>
+		<id>git-add</id>
+	    <phase>install</phase>
+	    <goals>
+	        <goal>exec</goal>
+	    </goals>
+	    <configuration>
+	        <executable>git</executable>
+	        <arguments>
+	            <argument>add</argument>
+	            <argument>-A</argument>
+	        </arguments>
+	    </configuration>
+	</execution>
+
+	<execution>
+	    <id>git-commit</id>
+	    <phase>install</phase>
+	    <goals>
+	        <goal>exec</goal>
+	    </goals>
+	    <configuration>
+	        <executable>git</executable>
+	        <arguments>
+	            <argument>commit</argument>
+	            <argument>-m</argument>
+	            <argument>"Auto commit during maven deploy"</argument>
+	        </arguments>
+	    </configuration>
+	</execution>
+
+	<execution>
+	    <id>git-push</id>
+	    <phase>install</phase>
+	    <goals>
+	        <goal>exec</goal>
+	    </goals>
+	    <configuration>
+	        <executable>git</executable>
+	        <arguments>
+	            <argument>push</argument>
+	            <argument>origin</argument>
+	            <argument>main</argument>
+	        </arguments>
+	    </configuration>
+	</execution>
+   </executions>
+  </plugin>
+ </plugins>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -151,4 +200,73 @@
       </plugins>
     </pluginManagement>
   </build>
+  <profiles>
+    <!-- Profile for version 1 -->
+    <profile>
+      <id>app1</id>
+      <properties>
+        <main.class>DevOpsProj.ProjApp.App</main.class>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>${main.class}</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <!-- Profile for version 2 -->
+    <profile>
+      <id>app2</id>
+      <properties>
+        <main.class>DevOpsProj.ProjApp.App2</main.class>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>${main.class}</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <!-- Profile for version 3 -->
+    <profile>
+      <id>app3</id>
+      <properties>
+        <main.class>DevOpsProj.ProjApp.App3</main.class>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>${main.class}</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+    
 </project>

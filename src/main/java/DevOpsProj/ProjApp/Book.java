@@ -1,4 +1,4 @@
-package model;
+package DevOpsProj.ProjApp;
 
 public class Book {
 	private String id;
