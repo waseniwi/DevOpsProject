@@ -125,7 +125,7 @@
 	        <arguments>
 	            <argument>commit</argument>
 	            <argument>-m</argument>
-	            <argument>"Auto commit during maven deploy"</argument>
+	            <argument>"Auto commit from Maven"</argument>
 	        </arguments>
 	    </configuration>
 	</execution>
